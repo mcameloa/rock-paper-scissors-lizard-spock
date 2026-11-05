@@ -19,6 +19,9 @@ const setup = () => {
 
 const reveal = () => act(() => vi.advanceTimersByTime(REVEAL_DELAY_MS));
 const score = () => screen.getByTestId("score");
+/** "winner" (rings), "loser" (dimmed) or "even", for the revealed pick with this alt text. */
+const standingOf = (name: string) =>
+  screen.getByAltText(name).closest("[data-standing]")?.getAttribute("data-standing");
 
 describe("Game", () => {
   beforeEach(() => {
@@ -49,7 +52,9 @@ describe("Game", () => {
     reveal();
     expect(screen.getByRole("heading", { name: "YOU WIN" })).toBeInTheDocument();
     expect(screen.getByAltText("scissors")).toBeInTheDocument();
-    expect(screen.getAllByTestId("winner-glow")).toHaveLength(1);
+    expect(screen.getAllByTestId("winner-rings")).toHaveLength(1);
+    expect(standingOf("rock")).toBe("winner");
+    expect(standingOf("scissors")).toBe("loser");
     expect(score()).toHaveTextContent("1");
 
     await user.click(screen.getByRole("button", { name: "PLAY AGAIN" }));
@@ -68,7 +73,13 @@ describe("Game", () => {
     reveal();
     expect(screen.getByRole("heading", { name: text })).toBeInTheDocument();
     expect(score()).toHaveTextContent(total);
-    expect(screen.queryAllByTestId("winner-glow")).toHaveLength(text === "DRAW" ? 0 : 1);
+    expect(screen.queryAllByTestId("winner-rings")).toHaveLength(text === "DRAW" ? 0 : 1);
+    if (text === "YOU LOSE") {
+      expect(standingOf(house)).toBe("winner");
+      expect(standingOf(mine)).toBe("loser");
+    } else {
+      expect(screen.getAllByAltText(mine).map((img) => img.closest("[data-standing]")?.getAttribute("data-standing"))).toEqual(["even", "even"]);
+    }
   });
 
   it("can be played with the keyboard", async () => {

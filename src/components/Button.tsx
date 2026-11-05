@@ -24,16 +24,17 @@ const Button = ({ variant, label, onClick, heading }: ButtonProps) => {
 
   return (
     <div
-      className={`absolute bottom-16 mt-3 animate-fade-in text-center tracking-widest ${styles.wrapper}`}
+      className={`absolute bottom-16 mt-3 text-center tracking-widest ${heading ? "" : "animate-fade-in"} ${styles.wrapper}`}
     >
       {heading && (
-        <h2 className="text-5xl font-bold text-white" aria-live="polite">
+        // Rises in after the winner's rings (see "Result reveal" in index.css).
+        <h2 className="reveal-rise text-5xl font-bold text-white [--rise-delay:700ms]" aria-live="polite">
           {heading}
         </h2>
       )}
       <button
         type="button"
-        className={`mt-3 cursor-pointer rounded-md border border-white px-16 py-4 focus-visible:outline-4 focus-visible:outline-offset-2 focus-visible:outline-white ${styles.button}`}
+        className={`mt-3 cursor-pointer rounded-md border border-white px-16 py-4 focus-visible:outline-4 focus-visible:outline-offset-2 focus-visible:outline-white ${heading ? "reveal-rise [--rise-delay:850ms]" : ""} ${styles.button}`}
         onClick={onClick}
       >
         <span className={styles.text}>{label}</span>

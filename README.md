@@ -18,7 +18,8 @@ between visits.
 
 - Play a round against the house: a roulette spins through the options, slows down and lands on
   the house's pick (a still slot instead when the system asks for reduced motion)
-- A glow on the winning pick, the outcome, and a score that goes up or down by one
+- A staged reveal: the house's pick pops in, rings grow behind the winner while the loser dims,
+  then the outcome rises in; the score goes up or down by one
 - The score is kept in `localStorage` and survives reloads (blocked or corrupt storage falls back to 0)
 - Rules dialog: closes with Escape, the close button or a click outside, and gives focus back to
   the Rules button
