@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from "vitest";
 import { OPTIONS } from "./constants";
-import { getOutcome, getPentagonPoints, getRandomOption } from "./functions";
+import { getOutcome, getPentagonPoints, getRandomOption, getRoulettePlan } from "./functions";
 
 describe("getOutcome", () => {
   it("is a draw when both pick the same option", () => {
@@ -37,5 +37,19 @@ describe("getPentagonPoints", () => {
     for (const { x, y } of getPentagonPoints(150)) {
       expect(Math.hypot(x - 150, y - 150)).toBeCloseTo(150);
     }
+  });
+});
+
+describe("getRoulettePlan", () => {
+  it.each([0, 1, 2, 3, 4])("lands on option %i", (target) => {
+    const { start, delays } = getRoulettePlan(target, 5, 2000);
+    expect((start + delays.length) % 5).toBe(target);
+  });
+
+  it("slows down and finishes before the reveal", () => {
+    const { delays } = getRoulettePlan(0, 5, 2000);
+    expect(delays.length).toBeGreaterThan(5);
+    for (let i = 1; i < delays.length; i++) expect(delays[i]).toBeGreaterThanOrEqual(delays[i - 1]);
+    expect(delays.reduce((a, b) => a + b, 0)).toBeLessThanOrEqual(2000 - 150);
   });
 });

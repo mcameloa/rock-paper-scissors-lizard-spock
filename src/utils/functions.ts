@@ -9,6 +9,33 @@ export const getOutcome = (user: OptionName, house: OptionName): Outcome => {
   return BEATS[user].includes(house) ? "win" : "lose";
 };
 
+export interface RoulettePlan {
+  /** Index of the option shown first. */
+  start: number;
+  /** Wait before each step to the next option; grows, so the spin slows down. */
+  delays: number[];
+}
+
+/**
+ * Plans a roulette that steps through `count` options, slowing down, and stops
+ * on `target` within `durationMs` (leaving a short pause before the reveal).
+ */
+export const getRoulettePlan = (
+  target: number,
+  count: number,
+  durationMs: number,
+  { firstDelay = 50, slowdown = 1.15, settleMs = 150 } = {},
+): RoulettePlan => {
+  const delays: number[] = [];
+  let total = 0;
+  for (let d = firstDelay; total + d <= durationMs - settleMs; d *= slowdown) {
+    delays.push(Math.round(d));
+    total += d;
+  }
+  const start = (((target - delays.length) % count) + count) % count;
+  return { start, delays };
+};
+
 export interface PentagonPoint {
   x: number;
   y: number;

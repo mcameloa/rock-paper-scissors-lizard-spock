@@ -1,12 +1,12 @@
 import { memo } from "react";
-import { Option } from "../components";
+import { Option, Roulette } from "../components";
 import { TEXTS } from "../utils/constants.ts";
 import type { GameOption, Outcome } from "../utils/types.ts";
 
 interface ResultProps {
   userOption: GameOption;
-  /** `null` while the house is still picking. */
-  houseOption: GameOption | null;
+  houseOption: GameOption;
+  /** `null` while the roulette is still spinning. */
   outcome: Outcome | null;
 }
 
@@ -17,10 +17,12 @@ const Result = memo(({ userOption, houseOption, outcome }: ResultProps) => (
       <span className="mt-7 text-white lg:text-4xl">{TEXTS.PICKED}</span>
     </div>
 
-    <div
-      className={`flex flex-col items-center justify-center lg:w-120 lg:scale-[1.5] ${houseOption ? "animate-fade-in" : ""}`}
-    >
-      <Option option={houseOption ?? undefined} winner={outcome === "lose"} />
+    <div className="flex flex-col items-center justify-center lg:w-120 lg:scale-[1.5]">
+      {outcome ? (
+        <Option option={houseOption} winner={outcome === "lose"} />
+      ) : (
+        <Roulette target={houseOption} />
+      )}
       <span className="mt-7 text-white lg:text-4xl">{TEXTS.HOUSE_PICKED}</span>
     </div>
   </div>

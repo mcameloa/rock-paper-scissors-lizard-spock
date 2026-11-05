@@ -1,8 +1,7 @@
 import type { GameOption } from "../utils/types.ts";
 
 interface OptionProps {
-  /** Omit to render the empty slot shown while the house is picking. */
-  option?: GameOption;
+  option: GameOption;
   /** When set, the option is a button; otherwise it only displays a pick. */
   onSelect?: (option: GameOption) => void;
   winner?: boolean;
@@ -12,14 +11,6 @@ const BASE =
   "relative flex h-24 w-24 items-center justify-center rounded-full border-none lg:scale-[1.3]";
 
 const Option = ({ option, onSelect, winner = false }: OptionProps) => {
-  if (!option) {
-    return (
-      <div className={`${BASE} animate-pulse bg-secondary-radial`} role="status">
-        <span className="sr-only">The house is picking</span>
-      </div>
-    );
-  }
-
   const content = (
     <>
       <span className="flex h-18 w-18 items-center justify-center rounded-full bg-white shadow-object-t shadow-neutral-300">

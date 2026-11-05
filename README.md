@@ -16,7 +16,8 @@ between visits.
 
 ## Features
 
-- Play a round against the house, with a short suspense delay before the house reveals its pick
+- Play a round against the house: a roulette spins through the options, slows down and lands on
+  the house's pick (a still slot instead when the system asks for reduced motion)
 - A glow on the winning pick, the outcome, and a score that goes up or down by one
 - The score is kept in `localStorage` and survives reloads (blocked or corrupt storage falls back to 0)
 - Rules dialog: closes with Escape, the close button or a click outside, and gives focus back to
@@ -71,10 +72,10 @@ src/
 │   └── useStoredScore.ts # Score that persists in localStorage
 ├── utils/
 │   ├── constants.ts      # Options, BEATS table, score deltas, texts
-│   ├── functions.ts      # Pure logic: getOutcome, getRandomOption, pentagon geometry
+│   ├── functions.ts      # Pure logic: getOutcome, getRandomOption, roulette plan, pentagon geometry
 │   └── types.ts          # OptionName, Outcome, GameState
 ├── views/                # Selection (pentagon) and Result screens
-└── components/           # Option, Score, Rules dialog, buttons
+└── components/           # Option, Roulette, Score, Rules dialog, buttons
 ```
 
 ## Design decisions
@@ -85,7 +86,8 @@ src/
 - **A small state machine.** A round is a tagged union (`picking`, `revealing` or `result`), so
   impossible states such as an outcome with no house pick cannot be represented. `useGame` owns
   the transitions and cancels the pending reveal on unmount or reset, so a late timer can never
-  change the score.
+  change the score. The house picks as soon as you do, so the roulette can land on that pick;
+  the outcome stays hidden until the reveal.
 - **Accessible by default.** Options are real buttons, the rules are a modal dialog, and tests
   query by role and label, the same way a screen reader user finds things.
 - **Behaviour tests over snapshots.** Full rounds run with fake timers and deterministic house

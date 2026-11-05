@@ -43,6 +43,7 @@ describe("Game", () => {
     await user.click(screen.getByRole("button", { name: "Pick rock" }));
     expect(screen.getByText("YOU PICKED")).toBeInTheDocument();
     expect(screen.getByRole("status")).toHaveTextContent(/house is picking/i);
+    expect(screen.getByTestId("roulette")).toBeInTheDocument();
     expect(screen.queryByRole("heading", { name: "YOU WIN" })).not.toBeInTheDocument();
 
     reveal();
@@ -85,7 +86,7 @@ describe("Game", () => {
     const { user, unmount } = setup();
 
     await user.click(screen.getByRole("button", { name: "Pick rock" }));
-    expect(vi.getTimerCount()).toBe(1);
+    expect(vi.getTimerCount()).toBeGreaterThan(0);
     unmount();
     expect(vi.getTimerCount()).toBe(0);
   });

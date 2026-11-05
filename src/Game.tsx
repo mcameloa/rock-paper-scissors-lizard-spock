@@ -21,11 +21,7 @@ const Game = () => {
       {state.phase === "picking" ? (
         <Selection onSelect={pick} />
       ) : (
-        <Result
-          userOption={state.user}
-          houseOption={state.phase === "result" ? state.house : null}
-          outcome={outcome}
-        />
+        <Result userOption={state.user} houseOption={state.house} outcome={outcome} />
       )}
 
       <Buttons outcome={outcome} onPlayAgain={playAgain} onShowRules={openRules} />

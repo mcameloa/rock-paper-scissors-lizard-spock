@@ -5,7 +5,7 @@ import type { GameOption, GameState } from "../utils/types.ts";
 import { useStoredScore } from "./useStoredScore.ts";
 
 /**
- * Game state machine: picking → revealing (house is "thinking") → result.
+ * Game state machine: picking → revealing (roulette spins to the house pick) → result.
  * The pending reveal is cancelled on "play again" and on unmount, so a late
  * timer can never change the score.
  */
@@ -24,11 +24,13 @@ export const useGame = () => {
   const pick = useCallback(
     (user: GameOption) => {
       cancelReveal();
-      setState({ phase: "revealing", user });
+      // The house decides now so the roulette can land on its pick; the
+      // outcome stays hidden until the reveal.
+      const house = getRandomOption();
+      setState({ phase: "revealing", user, house });
 
       revealTimer.current = setTimeout(() => {
         revealTimer.current = undefined;
-        const house = getRandomOption();
         const outcome = getOutcome(user.name, house.name);
         setState({ phase: "result", user, house, outcome });
         setScore((current) => current + SCORE_DELTA[outcome]);

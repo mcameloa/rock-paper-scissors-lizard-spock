@@ -11,5 +11,5 @@ export interface GameOption {
 
 export type GameState =
   | { phase: "picking" }
-  | { phase: "revealing"; user: GameOption }
+  | { phase: "revealing"; user: GameOption; house: GameOption }
   | { phase: "result"; user: GameOption; house: GameOption; outcome: Outcome };
