@@ -42,5 +42,6 @@
   },
   "overrides": {
     "minimatch": "^11.0.1"
-  }
+  },
+  "license": "MIT"
 }
