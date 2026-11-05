@@ -1,28 +1,77 @@
-import rulesImg from '../assets/image-rules-bonus.svg';
-import closeImg from '../assets/icon-close.svg';
-import {TEXTS} from "../utils/constants.ts";
+import { useEffect, useRef } from "react";
+import rulesImg from "../assets/image-rules-bonus.svg";
+import closeImg from "../assets/icon-close.svg";
+import { TEXTS } from "../utils/constants.ts";
 
-interface ModalProps {
-  show: boolean
-  onClose: () => void
+interface RulesProps {
+  show: boolean;
+  onClose: () => void;
 }
 
-export const Rules = (props: ModalProps) => {
-  if (!props.show) return null;
+const RULES_ALT =
+  "Scissors beats paper and lizard. Paper beats rock and Spock. Rock beats lizard and scissors. " +
+  "Lizard beats Spock and paper. Spock beats scissors and rock.";
+
+/**
+ * Rules dialog: full screen on mobile, centered card over a dimmed backdrop on desktop.
+ * Closes with the close button, Escape or a click on the backdrop, and gives focus
+ * back to whatever opened it.
+ */
+const Rules = ({ show, onClose }: RulesProps) => {
+  const closeButton = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    if (!show) return;
+
+    const opener = document.activeElement as HTMLElement | null;
+    closeButton.current?.focus();
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") onClose();
+    };
+    document.addEventListener("keydown", onKeyDown);
+
+    return () => {
+      document.removeEventListener("keydown", onKeyDown);
+      opener?.focus();
+    };
+  }, [show, onClose]);
+
+  if (!show) return null;
 
   return (
-    <div data-testid="rules-modal" className="fixed top-0 left-0 w-screen h-screen bg-white bg-opacity-50 z-50 flex items-center
-                    justify-center animate-fade-in lg:w-100 lg:h-120 lg:inset-x-[50%] lg:inset-y-[50%] lg:translate-[-50%]">
+    <div
+      data-testid="rules-backdrop"
+      className="fixed inset-0 z-50 flex animate-fade-in items-center justify-center bg-white lg:bg-black/50"
+      onClick={onClose}
+    >
       <div
-        className="bg-white w-80 h-80 rounded-md p-5 flex flex-col items-center justify-center lg:w-[32rem] lg:h-[32rem]">
-        <h1 className="absolute top-24 text-neutral-dark font-bold text-4xl lg:left-10 lg:top-10">{TEXTS.RULES}</h1>
-        <img className="w-80 h-80" src={rulesImg} alt="rules"/>
-
-        <img src={closeImg} className="absolute bottom-16 cursor-pointer lg:top-10 lg:right-10" alt="close"
-             onClick={props.onClose}/>
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="rules-title"
+        className="flex h-full w-full flex-col items-center justify-around py-20 lg:grid lg:h-auto lg:w-100 lg:grid-cols-[1fr_auto] lg:gap-y-12 lg:rounded-lg lg:bg-white lg:p-8"
+        onClick={(event) => event.stopPropagation()}
+      >
+        <h2 id="rules-title" className="text-4xl font-bold text-neutral-dark lg:self-center">
+          {TEXTS.RULES}
+        </h2>
+        <img
+          className="w-80 lg:col-span-2 lg:row-start-2 lg:justify-self-center"
+          src={rulesImg}
+          alt={RULES_ALT}
+        />
+        <button
+          ref={closeButton}
+          type="button"
+          aria-label="Close rules"
+          className="cursor-pointer rounded p-2 focus-visible:outline-2 focus-visible:outline-neutral-dark lg:col-start-2 lg:row-start-1"
+          onClick={onClose}
+        >
+          <img src={closeImg} alt="" />
+        </button>
       </div>
     </div>
-  )
+  );
 };
 
 export default Rules;

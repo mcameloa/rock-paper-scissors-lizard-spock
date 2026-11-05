@@ -1,27 +1,23 @@
 import Button from "./Button";
-import {TEXTS} from "../utils/constants.ts";
+import { OUTCOME_TEXT, TEXTS } from "../utils/constants.ts";
+import type { Outcome } from "../utils/types.ts";
 
 interface ButtonsProps {
-  result: string | null;
-  handlePlayAgain: () => void;
-  setShowModal: (value: boolean) => void;
+  outcome: Outcome | null;
+  onPlayAgain: () => void;
+  onShowRules: () => void;
 }
 
-const Buttons = ({ result, handlePlayAgain, setShowModal }: ButtonsProps) => {
-  return result ? (
+const Buttons = ({ outcome, onPlayAgain, onShowRules }: ButtonsProps) =>
+  outcome ? (
     <Button
-      invert={false}
-      text={TEXTS.PLAY_AGAIN}
-      action={handlePlayAgain}
-      result={result}
+      variant="solid"
+      label={TEXTS.PLAY_AGAIN}
+      heading={OUTCOME_TEXT[outcome]}
+      onClick={onPlayAgain}
     />
   ) : (
-    <Button
-      invert={true}
-      text={TEXTS.RULES}
-      action={() => setShowModal(true)}
-    />
+    <Button variant="outline" label={TEXTS.RULES} onClick={onShowRules} />
   );
-};
 
 export default Buttons;

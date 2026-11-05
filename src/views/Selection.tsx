@@ -1,54 +1,34 @@
 import { memo } from "react";
-import {Option} from "../components";
-import {OptionType} from "../utils/types.ts";
-import {useMemo} from "react";
-import {getPentagonPoints} from "../utils/functions.ts";
+import { Option } from "../components";
+import { PENTAGON_RADIUS } from "../utils/constants.ts";
+import { getPentagonPoints } from "../utils/functions.ts";
+import type { GameOption } from "../utils/types.ts";
 
-interface GameProps {
-  selectOption: (option: OptionType) => void;
-  radius: number;
-  centerX: number;
-  centerY: number;
+interface SelectionProps {
+  onSelect: (option: GameOption) => void;
 }
 
-const Selection = memo((props: GameProps) => {
-  const {radius, centerX, centerY} = props;
-  const points = useMemo(() => getPentagonPoints(centerX, centerY, radius), [radius, centerX, centerY]);
+// The geometry never changes, so it is computed once.
+const POINTS = getPentagonPoints(PENTAGON_RADIUS);
+const SIZE = PENTAGON_RADIUS * 2;
+const OUTLINE = POINTS.map(({ x, y }) => `${x},${y}`).join(" ");
 
-  return (
-    <div className="relative animate-fade-in mt-6 lg:mt-40">
-      <svg height="300" width="300">
-        <polygon
-          points={points.map((point) => `${point.x},${point.y}`).join(" ")}
-          fill="none"
-          stroke="#000"
-          strokeWidth="15"
-          opacity=".2"
-        />
-      </svg>
+const Selection = memo(({ onSelect }: SelectionProps) => (
+  <div role="group" aria-label="Pick your move" className="relative mt-6 animate-fade-in lg:mt-40">
+    <svg height={SIZE} width={SIZE} aria-hidden="true">
+      <polygon points={OUTLINE} fill="none" stroke="#000" strokeWidth="15" opacity=".2" />
+    </svg>
 
-      {
-        points.map(({x, y, option}, index) => (
-          <div
-            data-testid={option.name}
-            key={index}
-            style={{
-              position: "absolute",
-              left: `${x}px`,
-              top: `${y}px`,
-              transform: "translate(-50%, -50%)"
-            }}
-          >
-            <Option
-              styles={option.styles}
-              icon={option.icon}
-              action={() => props.selectOption(option)}
-            />
-          </div>
-        ))
-      }
-    </div>
-  )
-});
+    {POINTS.map(({ x, y, option }) => (
+      <div
+        key={option.name}
+        className="absolute -translate-x-1/2 -translate-y-1/2"
+        style={{ left: x, top: y }}
+      >
+        <Option option={option} onSelect={onSelect} />
+      </div>
+    ))}
+  </div>
+));
 
 export default Selection;

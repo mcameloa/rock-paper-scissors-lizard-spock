@@ -1,65 +1,73 @@
-import lizardLogo from "../assets/icon-lizard.svg"
-import paperLogo from "../assets/icon-paper.svg"
-import rockLogo from "../assets/icon-rock.svg"
-import scissorsLogo from "../assets/icon-scissors.svg"
-import spockLogo from "../assets/icon-spock.svg"
+import lizardIcon from "../assets/icon-lizard.svg";
+import paperIcon from "../assets/icon-paper.svg";
+import rockIcon from "../assets/icon-rock.svg";
+import scissorsIcon from "../assets/icon-scissors.svg";
+import spockIcon from "../assets/icon-spock.svg";
 
-import {OptionType, RulesType} from "./types.ts";
+import type { GameOption, OptionName, Outcome } from "./types.ts";
 
-export const OPTIONS: OptionType[] = [
+/** Clockwise from the top of the pentagon, matching the design. */
+export const OPTIONS: readonly GameOption[] = [
   {
     name: "scissors",
-    styles: "from-secondary-scissors to-primary-scissors shadow-scissors-shadow scissors",
-    icon: scissorsLogo,
+    styles: "from-secondary-scissors to-primary-scissors shadow-scissors-shadow",
+    icon: scissorsIcon,
   },
   {
     name: "paper",
-    styles: "from-secondary-paper to-primary-paper shadow-paper-shadow paper",
-    icon: paperLogo,
+    styles: "from-secondary-paper to-primary-paper shadow-paper-shadow",
+    icon: paperIcon,
   },
   {
     name: "rock",
-    styles: "from-secondary-rock to-primary-rock shadow-rock-shadow rock",
-    icon: rockLogo,
+    styles: "from-secondary-rock to-primary-rock shadow-rock-shadow",
+    icon: rockIcon,
   },
   {
     name: "lizard",
-    styles: "from-secondary-lizard to-primary-lizard shadow-lizard-shadow lizard",
-    icon: lizardLogo,
+    styles: "from-secondary-lizard to-primary-lizard shadow-lizard-shadow",
+    icon: lizardIcon,
   },
   {
     name: "spock",
-    styles: "from-secondary-spock to-primary-spock shadow-spock-shadow spock",
-    icon: spockLogo,
+    styles: "from-secondary-spock to-primary-spock shadow-spock-shadow",
+    icon: spockIcon,
   },
 ];
 
-export const RULES: RulesType = {
-  rock: {
-    beats: ["scissors", "lizard"],
-  },
-  paper: {
-    beats: ["rock", "spock"],
-  },
-  scissors: {
-    beats: ["paper", "lizard"],
-  },
-  lizard: {
-    beats: ["spock", "paper"],
-  },
-  spock: {
-    beats: ["rock", "scissors"],
-  },
+/** What each option defeats. Every option beats exactly two others. */
+export const BEATS: Readonly<Record<OptionName, readonly OptionName[]>> = {
+  rock: ["scissors", "lizard"],
+  paper: ["rock", "spock"],
+  scissors: ["paper", "lizard"],
+  lizard: ["spock", "paper"],
+  spock: ["rock", "scissors"],
 };
 
-export const PENTAGON_RADIUS = 150;
+export const SCORE_DELTA: Readonly<Record<Outcome, number>> = {
+  win: 1,
+  lose: -1,
+  draw: 0,
+};
+
+export const OUTCOME_TEXT: Readonly<Record<Outcome, string>> = {
+  win: "YOU WIN",
+  lose: "YOU LOSE",
+  draw: "DRAW",
+};
+
 export const TEXTS = {
-  DRAW: "DRAW",
-  WIN: "YOU WIN",
-  LOSE: "YOU LOSE",
+  TITLE: "Rock, Paper, Scissors, Lizard, Spock",
   PICKED: "YOU PICKED",
   HOUSE_PICKED: "THE HOUSE PICKED",
   PLAY_AGAIN: "PLAY AGAIN",
   RULES: "RULES",
   SCORE: "SCORE",
-};
+} as const;
+
+/** Time the house "thinks" before revealing its pick. */
+export const REVEAL_DELAY_MS = 2000;
+
+export const PENTAGON_RADIUS = 150;
+
+export const SCORE_STORAGE_KEY = "rpsls:score";

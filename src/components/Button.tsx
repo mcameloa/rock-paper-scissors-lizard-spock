@@ -1,40 +1,45 @@
-import { useMemo } from 'react';
-
-
 interface ButtonProps {
-  invert: boolean
-  text: string
-  result?: string | null;
-  action?: () => void;
+  variant: "solid" | "outline";
+  label: string;
+  onClick: () => void;
+  /** Optional heading shown above the button (the round's outcome). */
+  heading?: string;
 }
 
-const Button = (props: ButtonProps) => {
-  const { result, invert } = props;
+const STYLES = {
+  solid: {
+    wrapper: "lg:inset-x-[50%] lg:inset-y-[50%] lg:w-full lg:translate-[-50%]",
+    button: "w-xs bg-white",
+    text: "text-xs text-neutral-dark lg:text-2xl",
+  },
+  outline: {
+    wrapper: "lg:right-[20%]",
+    button: "",
+    text: "text-lg text-white",
+  },
+} as const;
 
-  const styles = useMemo(() => {
-    if (invert) {
-      return {
-        button: 'border border-white rounded-md px-16 py-4 mt-3 cursor-pointer',
-        text: 'text-white text-lg',
-        responsive: 'lg:right-[20%]',
-      }
-    }
-
-    return {
-      button: 'border border-white bg-white rounded-md px-16 py-4 mt-3 w-xs cursor-pointer',
-      text: 'text-neutral-dark text-xs lg:text-2xl',
-      responsive: 'lg:inset-x-[50%] lg:inset-y-[50%] lg:translate-[-50%] lg:w-full',
-    }
-  }, [invert])
+const Button = ({ variant, label, onClick, heading }: ButtonProps) => {
+  const styles = STYLES[variant];
 
   return (
-    <div className={`absolute bottom-16 text-center mt-3 tracking-widest animate-fade-in ${styles.responsive}`}>
-      { result && <h1 className="text-white font-bold text-5xl">{result}</h1> }
-      <button className={styles.button} type="submit" onClick={props.action}>
-        <span className={styles.text}>{props.text}</span>
+    <div
+      className={`absolute bottom-16 mt-3 animate-fade-in text-center tracking-widest ${styles.wrapper}`}
+    >
+      {heading && (
+        <h2 className="text-5xl font-bold text-white" aria-live="polite">
+          {heading}
+        </h2>
+      )}
+      <button
+        type="button"
+        className={`mt-3 cursor-pointer rounded-md border border-white px-16 py-4 focus-visible:outline-4 focus-visible:outline-offset-2 focus-visible:outline-white ${styles.button}`}
+        onClick={onClick}
+      >
+        <span className={styles.text}>{label}</span>
       </button>
     </div>
-  )
-}
+  );
+};
 
 export default Button;

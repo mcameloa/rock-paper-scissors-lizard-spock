@@ -1,27 +1,13 @@
-import Game from './Game';
-import {test, expect} from "vitest";
-import {render, screen} from "@testing-library/react";
+import { expect, it } from "vitest";
+import { render, screen } from "@testing-library/react";
+import Game from "./Game";
 
-test('renders Selection view', () => {
+it("starts on the selection screen with the five options", () => {
   render(<Game />);
-  expect(screen.getByText(/SCORE/i)).toBeInTheDocument();
-  expect(screen.getByText(/RULES/i)).toBeInTheDocument();
-});
-
-test('render Result page', () => {
-  render(<Game />);
-
-  const button = screen.getAllByTestId("scissors");
-  button[0].click();
-  // wait for the animation to finish
-  setTimeout(() => {
-    expect(screen.getByText(/YOU PICKED/i)).toBeInTheDocument();
-    expect(screen.getByText(/THE HOUSE PICKED/i)).toBeInTheDocument();
-    expect(screen.getByText(/PLAY AGAIN/i)).toBeInTheDocument();
-  }, 1000);
-});
-
-test("matches snapshot", () => {
-  const { container } = render(<Game />);
-  expect(container).toMatchSnapshot();
+  expect(screen.getByRole("heading", { level: 1 })).toHaveTextContent(/lizard, spock/i);
+  expect(screen.getByTestId("score")).toHaveTextContent("0");
+  for (const name of ["rock", "paper", "scissors", "lizard", "spock"]) {
+    expect(screen.getByRole("button", { name: `Pick ${name}` })).toBeInTheDocument();
+  }
+  expect(screen.getByRole("button", { name: "RULES" })).toBeInTheDocument();
 });

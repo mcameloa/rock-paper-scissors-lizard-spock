@@ -1,40 +1,27 @@
-import {OPTIONS, TEXTS, RULES} from "./constants.ts";
-import {OptionType} from "./types.ts";
+import { BEATS, OPTIONS } from "./constants.ts";
+import type { GameOption, OptionName, Outcome } from "./types.ts";
 
-export const getRandomOption = () => {
-  const randomIndex = Math.floor(Math.random() * OPTIONS.length);
-  return OPTIONS[randomIndex];
+export const getRandomOption = (): GameOption =>
+  OPTIONS[Math.floor(Math.random() * OPTIONS.length)];
+
+export const getOutcome = (user: OptionName, house: OptionName): Outcome => {
+  if (user === house) return "draw";
+  return BEATS[user].includes(house) ? "win" : "lose";
 };
 
-export const determineResult = (
-  userOption: OptionType,
-  houseOption: OptionType
-): { result: string; updatedUserOption: OptionType; updatedHouseOption: OptionType } => {
-  const updatedUserOption = { ...userOption, winner: false };
-  const updatedHouseOption = { ...houseOption, winner: false };
+export interface PentagonPoint {
+  x: number;
+  y: number;
+  option: GameOption;
+}
 
-  if (userOption.name === houseOption.name) {
-    return { result: TEXTS.DRAW, updatedUserOption, updatedHouseOption };
-  } else if (RULES[userOption.name].beats.includes(houseOption.name)) {
-    updatedUserOption.winner = true;
-    return { result: TEXTS.WIN, updatedUserOption, updatedHouseOption };
-  } else {
-    updatedHouseOption.winner = true;
-    return { result: TEXTS.LOSE, updatedUserOption, updatedHouseOption };
-  }
-};
-
-export const getPentagonPoints = (centerX: number, centerY: number, radius: number) => {
-  const points = [];
-  for (let i = 0; i < 5; i++) {
-    const angle = (i * 2 * Math.PI) / 5 - Math.PI / 2;
-    const x = centerX + radius * Math.cos(angle);
-    const y = centerY + radius * Math.sin(angle);
-    points.push({
-      x,
-      y,
-      option: OPTIONS[i]
-    });
-  }
-  return points;
-};
+/** Places each option on a vertex of a regular pentagon, first one at the top. */
+export const getPentagonPoints = (radius: number): PentagonPoint[] =>
+  OPTIONS.map((option, i) => {
+    const angle = (i * 2 * Math.PI) / OPTIONS.length - Math.PI / 2;
+    return {
+      x: radius + radius * Math.cos(angle),
+      y: radius + radius * Math.sin(angle),
+      option,
+    };
+  });
