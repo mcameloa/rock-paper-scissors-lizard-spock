@@ -73,7 +73,7 @@ exports[`matches snapshot 1`] = `
         </div>
         <div
           data-testid="paper"
-          style="position: absolute; left: 292.658477444273px; top: 103.6474508437579px; transform: translate(-50%, -50%);"
+          style="position: absolute; left: 292.658px; top: 103.647px; transform: translate(-50%, -50%);"
         >
           <div
             class="relative flex items-center justify-center
@@ -98,7 +98,7 @@ exports[`matches snapshot 1`] = `
         </div>
         <div
           data-testid="rock"
-          style="position: absolute; left: 238.16778784387097px; top: 271.3525491562421px; transform: translate(-50%, -50%);"
+          style="position: absolute; left: 238.168px; top: 271.353px; transform: translate(-50%, -50%);"
         >
           <div
             class="relative flex items-center justify-center
@@ -123,7 +123,7 @@ exports[`matches snapshot 1`] = `
         </div>
         <div
           data-testid="lizard"
-          style="position: absolute; left: 61.832212156129046px; top: 271.3525491562421px; transform: translate(-50%, -50%);"
+          style="position: absolute; left: 61.8322px; top: 271.353px; transform: translate(-50%, -50%);"
         >
           <div
             class="relative flex items-center justify-center
@@ -148,7 +148,7 @@ exports[`matches snapshot 1`] = `
         </div>
         <div
           data-testid="spock"
-          style="position: absolute; left: 7.341522555726954px; top: 103.64745084375791px; transform: translate(-50%, -50%);"
+          style="position: absolute; left: 7.34152px; top: 103.647px; transform: translate(-50%, -50%);"
         >
           <div
             class="relative flex items-center justify-center

@@ -9,7 +9,7 @@ test("renders the rules modal when show is true", () => {
 
 test("no renders the rules modal when show is false", () => {
   render(<Rules show={false} onClose={() => {}} />);
-  !expect(screen.queryByAltText("rules-modal")).not.toBeInTheDocument();
+  expect(screen.queryByTestId("rules-modal")).not.toBeInTheDocument();
 });
 
 test("matches snapshot", () => {
