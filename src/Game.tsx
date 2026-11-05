@@ -14,7 +14,7 @@ const Game = () => {
   const outcome = state.phase === "result" ? state.outcome : null;
 
   return (
-    <main className="relative flex min-h-dvh flex-col items-center justify-center overflow-hidden bg-linear-to-b from-primary-radial to-secondary-radial p-10">
+    <main className="relative flex min-h-dvh flex-col items-center justify-center overflow-hidden bg-radial-[at_50%_0%] from-primary-radial to-secondary-radial p-10">
       <h1 className="sr-only">{TEXTS.TITLE}</h1>
       <Score score={score} />
 

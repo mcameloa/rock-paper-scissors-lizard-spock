@@ -13,7 +13,7 @@ const STYLES = {
     text: "text-xs text-neutral-dark lg:text-2xl",
   },
   outline: {
-    wrapper: "lg:right-[20%]",
+    wrapper: "lg:right-8 lg:bottom-8",
     button: "",
     text: "text-lg text-white",
   },

@@ -6,7 +6,7 @@ interface ScoreProps {
 }
 
 const Score = ({ score }: ScoreProps) => (
-  <header className="absolute top-5 m-3 flex w-85/100 justify-between rounded-md p-4 outline-4 outline-neutral-outline">
+  <header className="absolute top-5 m-3 flex w-85/100 max-w-175 justify-between rounded-md p-4 outline-4 outline-neutral-outline">
     <img className="h-16 p-2 md:h-30" src={gameLogo} alt={TEXTS.TITLE} />
     <div className="flex h-16 w-1/4 flex-col justify-center rounded-md bg-white text-center md:h-30 md:w-40">
       <span className="text-xs font-light text-neutral-score">{TEXTS.SCORE}</span>

@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
-import rulesImg from "../assets/image-rules-bonus.svg";
+// Inlined (not <img>) so its "BEATS" labels use the page's web font.
+import rulesSvg from "../assets/image-rules-bonus.svg?raw";
 import closeImg from "../assets/icon-close.svg";
 import { TEXTS } from "../utils/constants.ts";
 
@@ -55,10 +56,12 @@ const Rules = ({ show, onClose }: RulesProps) => {
         <h2 id="rules-title" className="text-4xl font-bold text-neutral-dark lg:self-center">
           {TEXTS.RULES}
         </h2>
-        <img
-          className="w-80 lg:col-span-2 lg:row-start-2 lg:justify-self-center"
-          src={rulesImg}
-          alt={RULES_ALT}
+        <div
+          role="img"
+          aria-label={RULES_ALT}
+          className="w-full max-w-84 lg:col-span-2 lg:row-start-2 lg:justify-self-center [&>svg]:h-auto [&>svg]:w-full"
+          // Static asset bundled with the app, not user input.
+          dangerouslySetInnerHTML={{ __html: rulesSvg }}
         />
         <button
           ref={closeButton}
