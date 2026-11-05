@@ -1,0 +1,55 @@
+@import "tailwindcss";
+
+@theme {
+    --font-barlow: 'Barlow Semi Condensed';
+
+    --color-primary-scissors: hsl(39, 89%, 49%);
+    --color-secondary-scissors: hsl(40, 84%, 53%);
+    --color-scissors-shadow: hsl(28, 73%, 45%);
+    --color-primary-paper: hsl(230, 89%, 62%);
+    --color-secondary-paper: hsl(230, 89%, 65%);
+    --color-paper-shadow: hsl(229, 67%, 47%);
+    --color-primary-rock: hsl(349, 71%, 52%);
+    --color-secondary-rock: hsl(349, 70%, 56%);
+    --color-rock-shadow: hsl(348, 75%, 36%);
+    --color-primary-lizard: hsl(261, 73%, 60%);
+    --color-secondary-lizard: hsl(261, 72%, 63%);
+    --color-lizard-shadow: hsl(261, 52%, 43%);
+    --color-primary-spock: hsl(189, 59%, 53%);
+    --color-secondary-spock: hsl(189, 58%, 57%);
+    --color-spock-shadow: hsl(193, 58%, 42%);
+
+    --color-neutral-dark: hsl(229, 25%, 31%);
+    --color-neutral-score: hsl(229, 64%, 46%);
+    --color-neutral-outline: hsl(217, 16%, 45%);
+
+    --color-primary-radial: hsl(214, 47%, 23%);
+    --color-secondary-radial: hsl(237, 49%, 15%);
+
+    --shadow-object-b: 0px 6px;
+    --shadow-object-t: inset 0px 5px;
+
+    --shadow-object-b-w: 0px 0px 300px 30px;
+
+    --animate-fade-in: fade-in 1s ease-in-out;
+    @keyframes fade-in {
+        0% {
+            opacity: 0;
+        }
+        100% {
+            opacity: 1;
+        }
+    }
+
+    --animate-ping: ping 1s ease-in-out infinite;
+    @keyframes ping {
+        75%, 100% {
+            transform: scale(2);
+            opacity: 0;
+        }
+    }
+}
+
+body {
+    font-family: var(--font-barlow), sans-serif;
+}

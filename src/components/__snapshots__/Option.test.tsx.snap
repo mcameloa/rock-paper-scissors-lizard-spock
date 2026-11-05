@@ -1,0 +1,26 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`matches snapshot 1`] = `
+<div>
+  <div
+    class="relative flex items-center justify-center
+                                      rounded-full border-none w-24 h-24
+                                      bg-linear-to-b shadow-object-b cursor-pointer from-secondary-scissors to-primary-scissors shadow-scissors-shadow scissors
+                                      transition hover:-translate-y-1 lg:scale-[1.3] "
+  >
+    <div
+      class="flex items-center justify-center rounded-full w-18 h-18
+                                    bg-white shadow-object-t shadow-neutral-300"
+    >
+      <img
+        alt="option"
+        class="w-6 h-8"
+        src="data:image/svg+xml,%3csvg%20xmlns='http://www.w3.org/2000/svg'%20width='51'%20height='58'%3e%3cpath%20fill='%233B4262'%20d='M13.971%2025.702l6.012-8.415c-2.499-.415-7.088-.507-10.846%203.235C3.212%2026.421.812%2039.163.312%2042.248L15.37%2057.24c2.711-.232%2014.713-1.827%2026.279-13.34.122-.249%202.94-2.321.636-4.614-1.1-1.095-2.919-1.074-4.042.044-.572.57-1.461.577-2.021.02-.56-.557-.552-1.443.02-2.012l4.087-4.069c2.076-2.067.119-5.555-2.78-4.717l-3.345%202.851c-.611.53-1.52.439-2.022-.14-.519-.597-.408-1.503.183-2.013%2011.687-10.208%209.98-8.979%2017.5-15.995%202.809-2.329-.725-6.447-3.493-4.09L28.182%2025.45c-.529.448-1.34.457-1.86-.02-.601-.517-.615-1.262-.222-1.85L38.787%203.944c1.854-2.5-1.795-5.277-3.749-2.757L16.28%2027.307c-.452.65-1.364.8-1.985.345a1.377%201.377%200%2001-.323-1.95z'/%3e%3c/svg%3e"
+      />
+    </div>
+    <div
+      class="undefined"
+    />
+  </div>
+</div>
+`;
