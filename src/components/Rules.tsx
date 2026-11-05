@@ -43,23 +43,23 @@ const Rules = ({ show, onClose }: RulesProps) => {
   return (
     <div
       data-testid="rules-backdrop"
-      className="fixed inset-0 z-50 flex animate-fade-in items-center justify-center bg-white lg:bg-black/50"
+      className="fixed inset-0 z-50 flex animate-fade-in items-center justify-center bg-white md:bg-black/50"
       onClick={onClose}
     >
       <div
         role="dialog"
         aria-modal="true"
         aria-labelledby="rules-title"
-        className="flex h-full w-full flex-col items-center justify-around py-20 lg:grid lg:h-auto lg:w-100 lg:grid-cols-[1fr_auto] lg:gap-y-12 lg:rounded-lg lg:bg-white lg:p-8"
+        className="flex h-full w-full flex-col items-center justify-between pt-24 pb-16 md:grid md:h-auto md:w-100 md:grid-cols-[1fr_auto] md:gap-y-12 md:rounded-lg md:bg-white md:p-8"
         onClick={(event) => event.stopPropagation()}
       >
-        <h2 id="rules-title" className="text-4xl font-bold text-neutral-dark lg:self-center">
+        <h2 id="rules-title" className="text-4xl font-bold text-neutral-dark md:self-center">
           {TEXTS.RULES}
         </h2>
         <div
           role="img"
           aria-label={RULES_ALT}
-          className="w-full max-w-84 lg:col-span-2 lg:row-start-2 lg:justify-self-center [&>svg]:h-auto [&>svg]:w-full"
+          className="w-full max-w-84 md:col-span-2 md:row-start-2 md:justify-self-center [&>svg]:h-auto [&>svg]:w-full"
           // Static asset bundled with the app, not user input.
           dangerouslySetInnerHTML={{ __html: rulesSvg }}
         />
@@ -67,7 +67,7 @@ const Rules = ({ show, onClose }: RulesProps) => {
           ref={closeButton}
           type="button"
           aria-label="Close rules"
-          className="cursor-pointer rounded p-2 focus-visible:outline-2 focus-visible:outline-neutral-dark lg:col-start-2 lg:row-start-1"
+          className="cursor-pointer rounded p-2 focus-visible:outline-2 focus-visible:outline-neutral-dark md:col-start-2 md:row-start-1"
           onClick={onClose}
         >
           <img src={closeImg} alt="" />

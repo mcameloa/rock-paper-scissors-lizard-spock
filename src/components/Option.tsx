@@ -7,7 +7,7 @@ interface OptionProps {
 }
 
 const BASE =
-  "relative flex h-24 w-24 items-center justify-center rounded-full border-none lg:scale-[1.3]";
+  "relative flex h-24 w-24 items-center justify-center rounded-full border-none";
 
 const Option = ({ option, onSelect }: OptionProps) => {
   const content = (

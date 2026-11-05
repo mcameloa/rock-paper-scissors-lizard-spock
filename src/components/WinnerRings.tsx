@@ -5,7 +5,7 @@
 const RINGS = ["-inset-[20%]", "-inset-[45%]", "-inset-[75%]"] as const;
 
 const WinnerRings = () => (
-  <div data-testid="winner-rings" aria-hidden="true" className="absolute inset-0 lg:scale-[1.3]">
+  <div data-testid="winner-rings" aria-hidden="true" className="absolute inset-0">
     {RINGS.map((inset, i) => (
       <span
         key={inset}

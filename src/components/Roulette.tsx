@@ -55,7 +55,7 @@ const Roulette = ({ target }: RouletteProps) => {
       {reduceMotion ? (
         <div
           aria-hidden="true"
-          className="h-24 w-24 animate-pulse rounded-full bg-secondary-radial lg:scale-[1.3]"
+          className="h-24 w-24 animate-pulse rounded-full bg-secondary-radial"
         />
       ) : (
         // Remounting on every step replays the "tick" animation.

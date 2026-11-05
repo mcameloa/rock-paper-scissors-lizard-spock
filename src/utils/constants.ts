@@ -68,6 +68,5 @@ export const TEXTS = {
 /** Time the house "thinks" before revealing its pick. */
 export const REVEAL_DELAY_MS = 2000;
 
-export const PENTAGON_RADIUS = 150;
 
 export const SCORE_STORAGE_KEY = "rpsls:score";
